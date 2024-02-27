@@ -6,13 +6,9 @@ const useStreak = () => {
 
   const [streakDays, setStreakDays] = useState(0);
 
-  const incrementStreakDays = () => {
-    setStreakDays(streakDays + 1);
-  };
-
   useEffect(() => {
     if (allHabitsCompleted) {
-      incrementStreakDays();
+      setStreakDays((count) => count + 1);
     }
   }, [allHabitsCompleted]);
 

@@ -28,7 +28,9 @@ const useHabit = () => {
       habit.id === id ? { ...habit, done: !habit.done } : habit
     );
     setHabitList(newHabitList);
-    setAllHabitCompleted(newHabitList.every((habit) => habit.done));
+
+    const allCompleted = newHabitList.every((habit) => habit.done);
+    setAllHabitCompleted(allCompleted);
   };
 
   return {
