@@ -1,13 +1,14 @@
-import React from "react";
+import useHabitsStore from "../store/useHabitsStore";
 
 const SubmitForm = () => {
+  const { handleSubmit, handleChange, newHabit } = useHabitsStore();
   return (
     <form onSubmit={handleSubmit}>
       <label>Add your habits</label>
       <input
         type="text"
         value={newHabit}
-        onChange={(e) => setNewHabit(e.target.value)}
+        onChange={handleChange}
         className="shadow-md appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       />
       <button
