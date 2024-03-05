@@ -36,15 +36,6 @@ const useHabitsStore = create((set, get) => ({
       });
     }
   },
-  handleDelete: (id) =>
-    set((state) => {
-      const newHabitList = state.habitList.filter((habit) => habit.id !== id);
-
-      persistList(newHabitList);
-
-      return { habitList: newHabitList };
-    }),
-
   handleEdit: (id) =>
     set((state) => {
       const habitListEdit = state.habitList.map((habit) =>
@@ -53,6 +44,15 @@ const useHabitsStore = create((set, get) => ({
       persistList(habitListEdit);
 
       return { habitList: habitListEdit };
+    }),
+
+  handleDelete: (id) =>
+    set((state) => {
+      const newHabitList = state.habitList.filter((habit) => habit.id !== id);
+
+      persistList(newHabitList);
+
+      return { habitList: newHabitList };
     }),
 
   handleHabitComplete: (id) =>
