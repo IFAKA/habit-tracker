@@ -36,15 +36,6 @@ const useHabitsStore = create((set, get) => ({
       });
     }
   },
-  handleEdit: (id) =>
-    set((state) => {
-      const habitListEdit = state.habitList.map((habit) =>
-        habit.id === id ? { ...habit, isEditing: !habit.isEditing } : habit
-      );
-      persistList(habitListEdit);
-
-      return { habitList: habitListEdit };
-    }),
 
   handleDelete: (id) =>
     set((state) => {
@@ -53,6 +44,46 @@ const useHabitsStore = create((set, get) => ({
       persistList(newHabitList);
 
       return { habitList: newHabitList };
+    }),
+
+  handleEdit: (id) =>
+    set((state) => {
+      const selectedHabit = state.habitList.find((habit) => habit.id === id);
+      const habitListEdit = state.habitList.map((habit) =>
+        habit.id === id
+          ? { ...habit, isEditing: !habit.isEditing }
+          : { ...habit, isEditing: !!habit.isEditing }
+      );
+      persistList(habitListEdit);
+
+      return { habitList: habitListEdit, newHabit: selectedHabit.value };
+    }),
+
+  handleCancelEdit: () =>
+    set((state) => {
+      const newHabitList = state.habitList.map((habit) => ({
+        ...habit,
+        isEditing: false,
+      }));
+      persistList(newHabitList);
+
+      return { habitList: newHabitList, newHabit: "" };
+    }),
+
+  handleUpdateHabit: () =>
+    set((state) => {
+      const habitBeingEdited = state.habitList.find(
+        (habit) => habit.isEditing === true
+      );
+      const newHabitList = state.habitList.map((habit) =>
+        habit.id === habitBeingEdited.id
+          ? { ...habit, value: state.newHabit, isEditing: false }
+          : habit
+      );
+
+      persistList(newHabitList);
+
+      return { habitList: newHabitList, newHabit: "" };
     }),
 
   handleHabitComplete: (id) =>

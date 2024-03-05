@@ -1,7 +1,13 @@
 import useHabitsStore from "../store/useHabitsStore";
 
 const EditForm = () => {
-  const { handleSubmit, newHabit, handleChange } = useHabitsStore();
+  const {
+    handleSubmit,
+    newHabit,
+    handleChange,
+    handleCancelEdit,
+    handleUpdateHabit,
+  } = useHabitsStore();
 
   return (
     <form onSubmit={handleSubmit}>
@@ -10,17 +16,19 @@ const EditForm = () => {
         type="text"
         value={newHabit}
         onChange={handleChange}
-        className="shadow-md appearance-none border rounded-xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="w-full px-3 py-2 leading-tight text-gray-700 border shadow-md appearance-none rounded-xl focus:outline-none focus:shadow-outline"
       />
       <button
+        onClick={handleUpdateHabit}
         type="submit"
-        className="bg-sky-700 mt-2 rounded-lg text-white p-1 hover:scale-105"
+        className="p-1 mt-2 text-white rounded-lg bg-sky-700 hover:scale-105"
       >
         Update
       </button>
       <button
+        onClick={handleCancelEdit}
         type="submit"
-        className="bg-red-700 mt-2 rounded-lg text-white p-1 hover:scale-105"
+        className="p-1 mt-2 text-white bg-red-700 rounded-lg hover:scale-105"
       >
         Cancel
       </button>
