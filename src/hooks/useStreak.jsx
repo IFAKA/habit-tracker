@@ -1,16 +1,29 @@
 import useHabit from "./useHabit";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const useStreak = () => {
   const { allHabitsCompleted } = useHabit();
 
   const [streakDays, setStreakDays] = useState(0);
 
+  const increaseStreak = useCallback(() => {
+    const newStreakDays = streakDays + 1;
+
+    setStreakDays(newStreakDays);
+  }, [streakDays]);
+
+  const decreaseStreak = useCallback(() => {
+    const decreaseStreakDays = streakDays - 1;
+    setStreakDays(decreaseStreakDays);
+  }, [streakDays]);
+
   useEffect(() => {
     if (allHabitsCompleted) {
-      setStreakDays((count) => count + 1);
+      increaseStreak();
+    } else {
+      decreaseStreak();
     }
-  }, [allHabitsCompleted]);
+  }, [allHabitsCompleted, increaseStreak, decreaseStreak]);
 
   return {
     streakDays,

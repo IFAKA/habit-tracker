@@ -7,12 +7,12 @@ const HabitList = () => {
     <ul className="mb-5 overflow-y-auto border-2 border-gray-100 h-52 shadow-m">
       {habitList.map((habit) => (
         <li key={habit.id} className="flex justify-between hover:bg-sky-50">
-          <div
+          <button
             className={`${habit.done && "line-through"} cursor-pointer`}
             onClick={() => handleHabitComplete(habit.id)}
           >
             {habit.value}
-          </div>
+          </button>
           <div>
             <button
               onClick={() => handleDelete(habit.id)}
